@@ -17,9 +17,7 @@ class Stage_WP_Plugin_Manager_Loader {
 		// Instance Stage_WP_Plugin_Manager.
 		$this->instance = Stage_WP_Plugin_Manager::get_instance();
 		// Init plugin.
-		add_action( 'init', array( $this, 'init' ), 100 );
-		// Load text domain.
-		add_action( 'init', array( $this, 'load_text_domain' ), 99 );
+		$this->init();
 	}
 
 	public function __get( $property ) {
@@ -49,7 +47,7 @@ class Stage_WP_Plugin_Manager_Loader {
 			// Process AJAX requests.
 			add_action( 'wp_ajax_stage_wp_plugin_manager_process_ajax', array( $this, 'process_ajax' ) );
 			// Add footer message.
-			add_filter ('admin_footer_text', array( $this, 'add_footer_message' ), 999);
+			add_filter ('admin_footer_text', array( $this, 'add_footer_message' ), 999 );
 			// Add a link to settings page in Plugins page.
 			add_filter( 'plugin_action_links_' . $plugin, array( $this, 'add_settings_link' ) );
 		}
@@ -59,6 +57,8 @@ class Stage_WP_Plugin_Manager_Loader {
 		// Add warning in admin area.
 		add_action( 'admin_notices', array( $this, 'add_admin_warning' ) );
 		add_action( 'network_admin_notices', array( $this, 'add_admin_warning' ) );
+		// Load text domain.
+		add_action( 'init', array( $this, 'load_text_domain' ), 99 );
 	}
 
 	/**
@@ -99,10 +99,11 @@ class Stage_WP_Plugin_Manager_Loader {
 		require_once( ABSPATH . '/wp-includes/pluggable.php' );
 		$instance = $this->instance;
 		$option = $network ? $instance->wp_network_option : $instance->wp_option;
-		if (   isset( $_REQUEST[$option] ) 
-			&& $this->request_is_valid()
+		if (   ( isset( $_REQUEST[$option] ) && $this->request_is_valid() )
+			|| ( isset( $_REQUEST['page'] ) && 'stage-wp-plugin-manager' == $_REQUEST['page'] && isset( $_POST[$option . '_submit'] ) )
 		) {
-			$instance->update( $_REQUEST[$option], $network );
+			$request = isset( $_REQUEST[$option] ) ? $_REQUEST[$option] : array();
+			$instance->update( $request, $network );
 		} else { // Process single request.
 			$stage = $stage ? $stage : $instance->current_stage;
 			if (   !empty( $_REQUEST[$instance->add_key] ) 
@@ -372,6 +373,7 @@ class Stage_WP_Plugin_Manager_Loader {
 	 */
 	public function add_footer_message( $content ) {
 		$screen = get_current_screen();
+		$instance = $this->instance;
 		if ( 'plugins_page_stage-wp-plugin-manager' == $screen->base ) {
 			$content = '<em>' . sprintf( __( '<a href="%1$s">Stage WP Plugin Manager</a> by <a href="%2$s">Andr&eacute;s Villarreal</a>. Try it with <a href="%3$s">WP Bareboner</a> and <a href="%4$s">Stage WP</a> for more awesomeness :)', $instance->text_domain ), 'http://wordpress.org/plugins/stage-wp-plugin-manager', 'http://about.me/andrezrv', 'http://andrezrv.github.io/wordpress-bareboner', 'http://andrezrv.github.io/stage-wp/' ) . '</em> &mdash; ' . $content;
 		}

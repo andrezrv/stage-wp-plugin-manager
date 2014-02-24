@@ -384,15 +384,13 @@ class Stage_WP_Plugin_Manager {
 	 * @param array $value The updated value for the list.
 	 */
 	public function update( $value, $network = false ) {
-		if ( is_array( $value ) ) {
-			// Decide if we are updating network or not.
-			$option = $network ? $this->wp_network_option : $this->wp_option;
-			update_option( $option, $value );
-			if ( $network ) {
-				$this->managed_network_plugins = $this->get_managed_network_plugins();
-			} else {
-				$this->managed_plugins = $this->get_managed_plugins();
-			}
+		// Decide if we are updating network or not.
+		$option = $network ? $this->wp_network_option : $this->wp_option;
+		update_option( $option, $value );
+		if ( $network ) {
+			$this->managed_network_plugins = $this->get_managed_network_plugins();
+		} else {
+			$this->managed_plugins = $this->get_managed_plugins();
 		}
 	}
 

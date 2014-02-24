@@ -1,4 +1,4 @@
- <?php
+<?php
 /**
  * Stage WP Plugin Manager
  *

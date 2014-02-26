@@ -46,10 +46,6 @@ class Stage_WP_Plugin_Manager {
 		$this->non_stage_plugins         = $this->get_non_stage_plugins();
 		$this->non_stage_network_plugins = $this->get_non_stage_network_plugins();
 		do_action( 'stage_wp_plugin_manager_init' );
-/*		echo '<pre>';
-		var_dump($this);
-		echo '</pre>';
-		die();*/
 	}
 
 	public function __get( $property ) {

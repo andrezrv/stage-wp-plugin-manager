@@ -104,6 +104,10 @@ This plugin was originally meant as a complement for [WP Bareboner](http://githu
 
 If you feel like you want to help this project by adding something you think useful, you can make your pull request against the master branch :)
 
+## Donating
+
+This plugin took a lot of work. If it is helpful to you on a regular basis, you may want to consider [making a donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7XQG5ZA36UZ4). I'll be really thankful with that, and try my best to provide a great support for all the people who use it :). Donations are processed securely via [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7XQG5ZA36UZ4).
+
 ## Changelog
 
 #### 1.0

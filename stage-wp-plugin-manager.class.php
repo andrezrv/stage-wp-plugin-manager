@@ -76,7 +76,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Obtain self instance of this class.
-	 * 
+	 *
 	 * @return object Self instance of this class.
 	 */
 	public static function get_instance() {
@@ -100,13 +100,13 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Get default stage to be used by the plugin.
-	 * 
+	 *
 	 * @param  string  $stage Name for the default stage.
 	 * @return string         Filtered name for the default stage.
 	 */
 	private function set_default_stage( $stage = 'production' ) {
 		$stage = apply_filters( 'stage_wp_plugin_manager_default_stage', $stage );
-		$this->default_stage = $stage; 
+		$this->default_stage = $stage;
 	}
 
 	/**
@@ -139,46 +139,58 @@ class Stage_WP_Plugin_Manager {
 				}
 			}
 		}
-		$filter = $filter ? $filter : 'stage_wp_plugin_manager_managed_plugins'; 
+		$filter = $filter ? $filter : 'stage_wp_plugin_manager_managed_plugins';
 		$managed_plugins = apply_filters( $filter, $managed_plugins );
 		return $managed_plugins;
 	}
 
 	/**
 	 * Get array of network plugins managed by this plugin.
-	 * 
+	 *
 	 * @return array Filtered array containing plugins.
 	 */
 	private function get_managed_network_plugins() {
-		return $this->get_managed_plugins( 
+		return $this->get_managed_plugins(
 			$network = true,
 			'stage_wp_plugin_manager_network_managed_plugins'
 		);
 	}
 
 	/**
-	 * Get array of plugins for the current stage.
-	 * 
-	 * @param  array  $managed_plugins Array containing managed plugins.
+	 * Get filtered array of plugins.
+	 *
+	 * @param  array  $managed_plugins Array containing plugins.
 	 * @param  string $filter          Name of the filter to be applied to the result.
 	 * @return array                   Filtered array containing plugins.
 	 */
-	private function get_stage_plugins( $managed_plugins = array(), $filter = '' ) {
-		$managed_plugins = $managed_plugins ? $managed_plugins : $this->managed_plugins;
-		$filter = $filter ? $filter : 'stage_wp_plugin_manager_stage_plugins'; 
+	private function get_filtered_stage_plugins( $managed_plugins = array(), $filter = '' ) {
 		$stage_plugins = isset( $managed_plugins[$this->current_stage] )
 		                 ? $managed_plugins[$this->current_stage] : array();
-		$stage_plugins = apply_filters( $filter, $stage_plugins );
+		if ( $filter ) {
+			$stage_plugins = apply_filters( $filter, $stage_plugins );
+		}
 		return $stage_plugins;
 	}
 
 	/**
+	 * Get array of non-network plugins for the current stage.
+	 *
+	 * @return array Filtered array containing plugins.
+	 */
+	private function get_stage_plugins() {
+		return $this->get_filtered_stage_plugins(
+			$this->managed_plugins,
+			'stage_wp_plugin_manager_stage_plugins'
+		);
+	}
+
+	/**
 	 * Get array of network plugins for the current stage.
-	 * 
+	 *
 	 * @return array Filtered array containing plugins.
 	 */
 	private function get_stage_network_plugins() {
-		return $this->get_stage_plugins(
+		return $this->get_filtered_stage_plugins(
 			$this->managed_network_plugins,
 			'stage_wp_plugin_manager_stage_network_plugins'
 		);
@@ -193,7 +205,7 @@ class Stage_WP_Plugin_Manager {
 	 */
 	private function get_non_stage_plugins( $managed_plugins = array(), $filter = '' ) {
 		$managed_plugins = $managed_plugins ? $managed_plugins : $this->managed_plugins;
-		$filter = $filter ? $filter : 'stage_wp_plugin_manager_stage_plugins'; 
+		$filter = $filter ? $filter : 'stage_wp_plugin_manager_stage_plugins';
 		$non_stage_plugins = $managed_plugins;
 		$list = array();
 		if ( isset( $non_stage_plugins[$this->current_stage] ) ) {
@@ -215,7 +227,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Get array of network plugins that don't belong to the current stage.
-	 * 
+	 *
 	 * @return array Filtered array containing plugins.
 	 */
 	private function get_non_stage_network_plugins() {
@@ -227,7 +239,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Reformat list of plugins from network format to standard format.
-	 * 
+	 *
 	 * @param  array $plugins Array containing plugins.
 	 * @return array          Formated array containing plugins.
 	 */
@@ -241,7 +253,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Register a new stage.
-	 * 
+	 *
 	 * @param  string $stage The name of a stage.
 	 * @param  string $txt   The translatable text to be assigned to a stage.
 	 */
@@ -254,7 +266,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Register a translatable text for a given stage.
-	 * 
+	 *
 	 * @param  string $stage The name of a stage.
 	 * @param  string $txt   The translatable text to be assigned to a stage.
 	 */
@@ -266,7 +278,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Obtain the translatable text for a given stage.
-	 * 
+	 *
 	 * @param  string $stage The name of a stage.
 	 */
 	public function get_stage_txt( $stage) {
@@ -280,8 +292,8 @@ class Stage_WP_Plugin_Manager {
 	 * @return boolean Wether a stage is set or not.
 	 */
 	public function isset_stage() {
-		if (   defined( 'WP_STAGE' ) 
-			&& ( '' != WP_STAGE ) 
+		if (   defined( 'WP_STAGE' )
+			&& ( '' != WP_STAGE )
 			&& $this->stage_is_valid( WP_STAGE )
 		) {
 			return true;
@@ -322,7 +334,7 @@ class Stage_WP_Plugin_Manager {
 		}
 		// Remove non-stage plugins.
 		if (   is_array( $non_stage_plugins )
-			&& !empty( $non_stage_plugins ) 
+			&& !empty( $non_stage_plugins )
 		) {
 			foreach( $non_stage_plugins as $plugin ) {
 				if( ( $key = array_search( $plugin, $plugins ) ) !== false ) {
@@ -345,7 +357,7 @@ class Stage_WP_Plugin_Manager {
 		if ( $network ) {
 			$reformatted_plugins = array();
 			foreach ( $plugins as $key => $value ) {
-				$reformatted_plugins[$value] = rand( 1000000000, 9999999999 ); 
+				$reformatted_plugins[$value] = rand( 1000000000, 9999999999 );
 			}
 			$plugins = $reformatted_plugins;
 		}
@@ -354,7 +366,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Add a plugin to the list of a given stage.
-	 * 
+	 *
 	 * @param string $value The basename of the plugin that must be added to the list.
 	 */
 	public function add( $plugin, $stage = false, $network = false ) {
@@ -377,7 +389,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Updates the list of managed plugins.
-	 * 
+	 *
 	 * @param array $value The updated value for the list.
 	 */
 	public function update( $value, $network = false ) {
@@ -394,7 +406,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Removes a plugin from the list for a given stage.
-	 * 
+	 *
 	 * @param string $value The basename of the plugin that must be removed from the list.
 	 */
 	public function delete( $value, $stage = false, $network = false ) {
@@ -403,7 +415,7 @@ class Stage_WP_Plugin_Manager {
 		$plugins = $network ? $this->managed_network_plugins : $this->managed_plugins;
 		// If the given plugin is on the list, then remove it.
 		if (   isset( $plugins[$stage] )
-			&& ( $key = array_search( $value, $plugins[$stage] ) ) !== false 
+			&& ( $key = array_search( $value, $plugins[$stage] ) ) !== false
 		) {
 		    unset( $plugins[$stage][$key] );
 		}
@@ -417,7 +429,7 @@ class Stage_WP_Plugin_Manager {
 
 	/**
 	 * Clean a given list of plugins, checking for non-existent files.
-	 * 
+	 *
 	 * @param  array $plugins An array containing relative paths to plugins from the plugin directory.
 	 * @return array          A clean list of plugins, without non-existent files.
 	 */
@@ -426,7 +438,7 @@ class Stage_WP_Plugin_Manager {
 		foreach( $plugins as $plugin ) {
 			if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin ) ) {
 					$clean_plugins[] = $plugin;
-			} 
+			}
 		}
 		return $clean_plugins;
 	}

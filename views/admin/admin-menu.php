@@ -7,6 +7,7 @@
  * @package Stage_WP_Plugin_Manager
  * @since   1.0
  */
+echo '<pre>'; var_dump( Stage_WP_Plugin_Manager::get_instance() ); echo '</pre>';
 // Get a shortener for the plugin instance.
 $instance = $this->instance;
 // Get flag for network admin.
@@ -18,7 +19,7 @@ $managed_plugins = $network ? $instance->managed_network_plugins : $instance->ma
 // Obtain names for activated status.
 $activated_status = $network ? __( 'Network Activated', $instance->text_domain ) : __( 'Activated', $instance->text_domain );
 // Obtain names for deactivated status.
-$deactivated_status = $network ? __( 'Network Dectivated', $instance->text_domain ) : __( 'Deactivated', $instance->text_domain );
+$deactivated_status = $network ? __( 'Network Deactivated', $instance->text_domain ) : __( 'Deactivated', $instance->text_domain );
 ?>
 <div class="wrap">
 
@@ -47,19 +48,19 @@ $deactivated_status = $network ? __( 'Network Dectivated', $instance->text_domai
 								<td width="50%">
 
 									<?php if ( $stage == $instance->current_stage ) : ?>
-										
+
 										<h4><?php _e( 'This is your current working stage.', $instance->text_domain ); ?></h4>
 										<p class="description"><?php _e( 'If you switch to another stage and want to go back to this one later, you must have the following code in your <code>wp-config.php</code> file (or whatever your configuration file is):', $instance->text_domain ); ?></p>
-									
+
 									<?php else : ?>
-										
+
 										<h4><?php _e( 'This is a currently non-working stage.', $instance->text_domain ); ?></h4>
 										<p class="description"><?php _e( 'If you want to switch to this stage, you must have the following code in your <code>wp-config.php</code> file (or whatever your configuration file is):', $instance->text_domain ); ?></p>
-									
+
 									<?php endif; ?>
-									
+
 									<pre>define( 'WP_STAGE', '<?php echo $stage; ?>' );</pre>
-								
+
 								</td>
 
 								<?php if ( $instance->isset_stage() ) : ?>
@@ -67,20 +68,21 @@ $deactivated_status = $network ? __( 'Network Dectivated', $instance->text_domai
 									<td>
 
 										<h4><?php echo sprintf( __( 'Active plugins for <em>%s</em> stage', $instance->text_domain ), $instance->get_stage_txt( $stage ) ); ?></h4>
-		
-										<select multiple="multiple" id="<?php echo $option; ?>[<?php echo $stage; ?>]" name="<?php echo $this->instance->wp_option?>[<?php echo $stage; ?>][]" size="7">
+
+										<select multiple="multiple" id="<?php echo $option; ?>[<?php echo $stage; ?>]" name="<?php echo $option; ?>[<?php echo $stage; ?>][]" size="7">
+
 											<?php foreach( $this->get_all_plugins() as $wp_plugin_key => $wp_plugin_data ) : ?>
 
 												<?php $original_status = $this->instance->is_really_active( $wp_plugin_key ) ? $activated_status : $deactivated_status; ?>
-												
+
 												<?php $selected = ( isset( $managed_plugins[$stage] ) && is_array( $managed_plugins[$stage] ) && in_array( $wp_plugin_key, $managed_plugins[$stage] ) ) ? ' selected="selected"' : ''; ?>
-												
+
 												<option value="<?php echo $wp_plugin_key; ?>"<?php echo $selected; ?>><?php echo $wp_plugin_data['Name'] ?> &mdash; <?php echo sprintf( __( 'Original state: %s', $instance->text_domain ), $original_status ); ?></option>
-											
+
 											<?php endforeach; ?>
-										
+
 										</select>
-										
+
 										<p class="description"><?php echo sprintf( __( 'The plugins you select here will be automatically activated in your <em>%s</em> stage.', $instance->text_domain ), $instance->get_stage_txt( $stage ) ); ?></p>
 
 									</td>
@@ -93,11 +95,11 @@ $deactivated_status = $network ? __( 'Network Dectivated', $instance->text_domai
 					</div>
 
 				</div>
-				
+
 			<?php endforeach; ?>
 
 			<?php if ( $instance->isset_stage() ) : ?>
-				
+
 				<p class="submit">
 					<input id="submit" class="button button-primary" type="submit" value="<?php _e( 'Save Changes' ); ?>" name="submit">
 				</p>

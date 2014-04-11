@@ -5,7 +5,6 @@
  * Load Stage_WP_Plugin_Manager.
  *
  * @package Stage_WP_Plugin_Manager
- * @version 1.0
  * @since   1.0
  */
 class Stage_WP_Plugin_Manager_Loader {
@@ -106,8 +105,8 @@ class Stage_WP_Plugin_Manager_Loader {
 			$instance->update( $request, $network );
 		} else { // Process single request.
 			$stage = $stage ? $stage : $instance->current_stage;
-			if (   !empty( $_REQUEST[$instance->add_key] ) 
-				&& $this->request_is_valid() 
+			if (   !empty( $_REQUEST[$instance->add_key] )
+				&& $this->request_is_valid()
 			) { // Process addings.
 				$instance->add( $_REQUEST[$instance->add_key], $stage, $network );
 			} elseif (   !empty( $_REQUEST[$instance->delete_key] )
@@ -140,7 +139,7 @@ class Stage_WP_Plugin_Manager_Loader {
 		}
 		$_REQUEST = $params;
 		// Process requested plugin as needed.
-		$network_requested = (   isset( $_REQUEST['network'] ) 
+		$network_requested = (   isset( $_REQUEST['network'] )
 			                  && 'true' === $_REQUEST['network'] );
 		$network = $network_requested ? true : false;
 		$this->process_request( false, $network );
@@ -181,7 +180,7 @@ class Stage_WP_Plugin_Manager_Loader {
 
 	/**
 	 * Adds a link to the array of action links for the given plugin.
-	 * 
+	 *
 	 * @param  array  $links  The list of links.
 	 * @param  string $plugin The basename of a plugin.
 	 * @return array          An array containing links.
@@ -198,7 +197,7 @@ class Stage_WP_Plugin_Manager_Loader {
 	/**
 	 * Obtains values for the current stage and calls $this->make_link() to return
 	 * an option link for the given plugin.
-	 * 
+	 *
 	 * @param string $plugin The basename of a plugin.
 	 */
 	private function process_link( $plugin ) {
@@ -224,13 +223,13 @@ class Stage_WP_Plugin_Manager_Loader {
 	/**
 	 * Obtains values for the current stage and calls $this->make_link() to return
 	 * an option link for the given plugin.
-	 * 
+	 *
 	 * @param string $plugin The basename of a plugin.
 	 */
 	private function process_network_link( $plugin ) {
 		$link = '';
 		$instance = $this->instance;
-		if (    isset( $instance->managed_network_plugins[$instance->current_stage] ) 
+		if (    isset( $instance->managed_network_plugins[$instance->current_stage] )
 			 && in_array( $plugin, $instance->managed_network_plugins[$instance->current_stage] )
 		) { // Process link to detach plugin from stage.
 			$active = $instance->is_really_active( plugin_basename( $plugin ), true );
@@ -249,7 +248,7 @@ class Stage_WP_Plugin_Manager_Loader {
 
 	/**
 	 * Processes HTML for the current option link of a plugin.
-	 * 
+	 *
 	 * @param  string $plugin  The path of a plugin.
 	 * @param  string $key     The GET key to process the link's request with.
 	 * @param  string $message The message to display to the user.
@@ -299,8 +298,8 @@ class Stage_WP_Plugin_Manager_Loader {
 	    $screen->add_help_tab( array(
 			'id'      => 'stage_wp_plugin_manager_help_description',
 			'title'   => __( 'Description', $instance->text_domain ),
-			'content' => $this->load_view( 
-				$file   = 'admin/help-description.php', 
+			'content' => $this->load_view(
+				$file   = 'admin/help-description.php',
 				$filter = 'stage_wp_plugin_manager_help_description',
 				$return = true
 			),
@@ -308,8 +307,8 @@ class Stage_WP_Plugin_Manager_Loader {
 	    $screen->add_help_tab( array(
 	        'id'	=> 'stage_wp_plugin_manager_help_getting_started',
 	        'title'	=> __( 'Getting Started', $instance->text_domain ),
-	        'content' => $this->load_view( 
-				$file   = 'admin/help-getting-started.php', 
+	        'content' => $this->load_view(
+				$file   = 'admin/help-getting-started.php',
 				$filter = 'stage_wp_plugin_manager_help_getting_started',
 				$return = true
 			),
@@ -317,8 +316,8 @@ class Stage_WP_Plugin_Manager_Loader {
 	    $screen->add_help_tab( array(
 	        'id'	=> 'stage_wp_plugin_manager_help_attach_detach',
 	        'title'	=> __( 'Attach & Detach Plugins', $instance->text_domain ),
-	        'content' => $this->load_view( 
-				$file   = 'admin/help-attach-and-detach.php', 
+	        'content' => $this->load_view(
+				$file   = 'admin/help-attach-and-detach.php',
 				$filter = 'stage_wp_plugin_manager_help_attach_detach',
 				$return = true
 			),
@@ -326,8 +325,8 @@ class Stage_WP_Plugin_Manager_Loader {
 	    $screen->add_help_tab( array(
 	        'id'	=> 'stage_wp_plugin_manager_help_add_extend',
 	        'title'	=> __( 'Adding Stages & Extending', $instance->text_domain ),
-	        'content' => $this->load_view( 
-				$file   = 'admin/help-add-and-extend.php', 
+	        'content' => $this->load_view(
+				$file   = 'admin/help-add-and-extend.php',
 				$filter = 'stage_wp_plugin_manager_help_add_extend',
 				$return = true
 			),
@@ -335,8 +334,8 @@ class Stage_WP_Plugin_Manager_Loader {
 	    $screen->add_help_tab( array(
 	        'id'	=> 'stage_wp_plugin_manager_help_credits',
 	        'title'	=> __( 'Credits', $instance->text_domain ),
-	        'content' => $this->load_view( 
-				$file   = 'admin/help-credits.php', 
+	        'content' => $this->load_view(
+				$file   = 'admin/help-credits.php',
 				$filter = 'stage_wp_plugin_manager_help_credits',
 				$return = true
 			),
@@ -351,7 +350,20 @@ class Stage_WP_Plugin_Manager_Loader {
 	}
 
 	public function get_all_plugins() {
+		// Obtain installed plugins.
 		$plugins = get_plugins();
+		// Remove sitewide active plugins when viewing individual sites.
+		if ( ! is_network_admin() ) {
+			$sitewide_active_plugins = $this->instance->reformat(
+				get_site_option( 'active_sitewide_plugins' )
+			);
+			foreach ( $sitewide_active_plugins as $sitewide_active_plugin ) {
+				if ( isset( $plugins[$sitewide_active_plugin] ) ) {
+					unset( $plugins[$sitewide_active_plugin] );
+				}
+			}
+		}
+		// Remove this plugin to avoid lockouts.
 		unset( $plugins[plugin_basename( dirname( __FILE__ ) . '/stage-wp-plugin-manager.php' )] );
 		return $plugins;
 	}
@@ -361,13 +373,13 @@ class Stage_WP_Plugin_Manager_Loader {
 	 */
 	public function add_admin_warning() {
 		if ( !$this->instance->isset_stage() ) {
-			$this->load_view( 'admin/admin-warning.php', 'stage_wp_plugin_manager_admin_warning' );    
+			$this->load_view( 'admin/admin-warning.php', 'stage_wp_plugin_manager_admin_warning' );
 		}
 	}
 
 	/**
 	 * Add a message to footer of plugin settings page.
-	 * 
+	 *
 	 * @param  string $content The current content.
 	 * @return string          HTML output.
 	 */
@@ -379,10 +391,10 @@ class Stage_WP_Plugin_Manager_Loader {
 		}
 		return $content;
 	}
-	
+
 	/**
 	 * Add link to plugin settings in Plugins page.
-	 * 
+	 *
 	 * @param  array $links Original array of links for plugin in Plugins page.
 	 * @return array        Filtered array of links for plugin in Plugins page.
 	 */
@@ -397,7 +409,7 @@ class Stage_WP_Plugin_Manager_Loader {
 
 	/**
 	 * List of stages wrapped in <code> tags.
-	 * 
+	 *
 	 * @return string HTML result.
 	 */
 	public function html_listed_stages() {
@@ -424,8 +436,8 @@ class Stage_WP_Plugin_Manager_Loader {
 
 	/**
 	 * Load a view for this plugin.
-	 * 
-	 * @param  string  $file   File into `./views/` directory containing the code for the view. 
+	 *
+	 * @param  string  $file   File into `./views/` directory containing the code for the view.
 	 * @param  string  $filter Tag for filter to be applied to the view.
 	 * @param  boolean $return Wether return the output instead of echo it or not.
 	 * @return string          The HTML output, in case $return is set to true.

@@ -7,7 +7,6 @@
  * @package Stage_WP_Plugin_Manager
  * @since   1.0
  */
-echo '<pre>'; var_dump( Stage_WP_Plugin_Manager::get_instance() ); echo '</pre>';
 // Get a shortener for the plugin instance.
 $instance = $this->instance;
 // Get flag for network admin.

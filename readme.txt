@@ -20,7 +20,7 @@ Stage WP Plugin Manager is meant to solve that problem in an quick and elegant w
 
 **Please read the following instructions very carefully.**
 
-## Getting Started
+#### Getting Started
 
 Stage WP Plugin Manager works on some assumptions about your workflow:
 
@@ -30,27 +30,25 @@ Stage WP Plugin Manager works on some assumptions about your workflow:
 
 Some developers prefer to keep different configuration files for each one of their stages, or change the values of their constants based on some evaluation. For example, you could have something like this in your `wp-config.php` file:
 
-```php
-if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
+`if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 	define( 'WP_STAGE', 'local' );
 } elseif ( file_exists( dirname( __FILE__ ) . '/staging-config.php' ) ) {
 	define( 'WP_STAGE', 'staging' );
 } else {
 	define( 'WP_STAGE', 'production' );
-}
-```
+}`
 
 If you follow this example, note that `local-config.php` should not be included in your deployments to staging and production, and both `local-config.php` and `staging-config.php` should not exist in your production stage.
 
-## Attach & Detach
+#### Attach & Detach
 
 Once you have installed this plugin, you will notice that a new link appears under each active plugin of the list, which reads "Attach to [your-stage] stage". By clicking that link, you are setting a plugin to be always active in the stage you're working at, and not active on the other stages (unless you attach the plugin to the other stages too).
 
 In case you want to remove a plugin from the list of active plugins for a stage, you just need to click the "Detach from [your-stage] stage".
 
-Additionally, you can make bulk selections of plugins to be attached or detached for each stage by going to ** *Plugins > Stage Management* **.
+Additionally, you can make bulk selections of plugins to be attached or detached for each stage by going to *Plugins > Stage Management*.
 
-## Add & Extend Functionality
+#### Add & Extend Functionality
 
 Stage WP Plugin Manager allows you to extend its functionality by offering hooks for filters and actions.
 
@@ -79,7 +77,7 @@ Here's the complete list of actions and filters that Stage WP Plugin Manager off
 
 ##### Filter hooks
 
-* `stage_wp_plugin_manager_stages>`: Modifiy the current supported stages.
+* `stage_wp_plugin_manager_stages`: Modifiy the current supported stages.
 * `stage_wp_plugin_manager_default_stage`: Modify the default stage.
 * `stage_wp_plugin_manager_managed_plugins`: Modify the list of plugins managed by Stage WP Plugin Manager.
 * `stage_wp_plugin_manager_stage_plugins`: Modify the list of plugins attached to the current stage.
@@ -91,15 +89,15 @@ Here's the complete list of actions and filters that Stage WP Plugin Manager off
 * `stage_wp_plugin_manager_help_add_extend`: Modify contents of "Adding Stages & Extending" help tab
 * `stage_wp_plugin_manager_help_credits`: Modify contents of "Credits" help tab
 
-## WordPress MultiSite Compatibility
+#### WordPress MultiSite Compatibility
 
 If you're using MultiSite and set this plugin to network activated, you can use it to attach plugins to stages on a sitewide basis :)
 
-## Improve Your Workflow
+#### Improve Your Workflow
 
 This plugin was originally meant as a complement for [WP Bareboner](http://github.com/andrezrv/wordpress-bareboner), an advanced Git model repo, and [Stage WP](http://github.com/andrezrv/stage-wp), a deployment tool based in Capistrano. The three projects work really well separated, but their real power can only be seen by using them together.
 
-## Contribute
+#### Contribute
 
 You can make suggestions and submit your own modifications to this plugin on [Github](https://github.com/andrezrv/stage-wp-plugin-manager).
 

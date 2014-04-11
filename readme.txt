@@ -3,9 +3,9 @@ Contributors: andrezrv
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7XQG5ZA36UZ4
 Tags: plugin, plugins, manager, testing, stage, stages, staging, production, development, local, environment
 Requires at least: 3.0
-Tested up to: 3.8.1
+Tested up to: 3.8.2
 Stable tag: 1.0
-License: GPLv2 or later
+License: GPL2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Gives you the option to determine which plugins must be automatically activated either on local, staging or productions stages.
@@ -108,6 +108,12 @@ You can make suggestions and submit your own modifications to this plugin on [Gi
 1. Unzip `stage-wp-plugin-manager.zip` and upload the `stage-wp-plugin-manager` folder to your `/wp-content/plugins/` directory.
 2. Activate the plugin through the **"Plugins"** menu in WordPress.
 3. Read carefully the instructions in [description page](http://wordpress.org/extend/plugins/stage-wp-plugin-manager/).
+
+== Screenshots ==
+
+1. Plugins page with links to attach the plugin to the current stage.
+2. Stage WP Plugin Manager settings, where you can attach plugins to any stage.
+3. Advanced help.
 
 == Changelog ==
 

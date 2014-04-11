@@ -2,7 +2,7 @@
 
 This WordPress plugin gives you the option to determine which plugins must be automatically activated either on local, staging or productions stages. By hooking in to the list of active plugins, it lets you keep different setups for each stage, and you can even add your own stages in case you need more than the default ones.
 
-**Current stable version:** [1.0-RC](http://github.com/andrezrv/stage-wp-plugin-manager/tree/1.0-RC)
+**Current stable version:** [1.0](http://github.com/andrezrv/stage-wp-plugin-manager/tree/1.0)
 
 ## Description
 

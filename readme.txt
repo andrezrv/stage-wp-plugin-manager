@@ -3,14 +3,12 @@ Contributors: andrezrv
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7XQG5ZA36UZ4
 Tags: plugin, plugins, manager, testing, stage, stages, staging, production, development, local, environment
 Requires at least: 3.0
-Tested up to: 3.8.2
+Tested up to: 3.9
 Stable tag: 1.0
 License: GPL2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Gives you the option to determine which plugins must be automatically activated either on local, staging or productions stages.
-
-By hooking in to the list of active plugins, it lets you keep different setups for each stage, and you can even add your own stages in case you need more than the default ones.
 
 == Description ==
 

@@ -130,8 +130,8 @@ class Stage_WP_Plugin_Manager_Loader {
 	public function process_ajax() {
 		$instance = $this->instance;
 		// We need to "mock" the request a little bit here.
-		$query = urldecode( parse_url( $_POST['href'] )['query'] );
-		$query_elements = explode( '&', $query );
+		$query = parse_url( $_POST['href'] );
+		$query_elements = explode( '&', urldecode( $query['query'] ) );
 		$params = array();
 		foreach ( $query_elements as $element ) {
 			$temp_element = explode( '=', $element );

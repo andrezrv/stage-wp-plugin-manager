@@ -241,14 +241,17 @@ class Stage_WP_Plugin_Manager {
 	 * Reformat list of plugins from network format to standard format.
 	 *
 	 * @param  array $plugins Array containing plugins.
-	 * @return array          Formated array containing plugins.
+	 * @return array          Formatted array containing plugins.
 	 */
-	public function reformat( $plugins ) {
-		$reformated_plugins = array();
-		foreach ( $plugins as $key => $value ) {
-			$reformated_plugins[] = $key;
+	public function reformat( $plugins = array() ) {
+		$reformatted_plugins = array();
+
+		if ( ! empty( $plugins ) ) {
+			foreach ( $plugins as $key => $value ) {
+				$reformatted_plugins[] = $key;
+			}
 		}
-		return $reformated_plugins;
+		return $reformatted_plugins;
 	}
 
 	/**

@@ -3,7 +3,7 @@ Contributors: andrezrv
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7XQG5ZA36UZ4
 Tags: plugin, plugins, manager, testing, stage, stages, staging, production, development, local, environment
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.0.1
 Stable tag: 1.0
 License: GPL2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
